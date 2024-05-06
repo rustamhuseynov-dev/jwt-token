@@ -11,4 +11,4 @@ services:
       MYSQL_USER: rustam
       MYSQL_PASSWORD: rustam01
     ports:
-       - '5050:5050'
+       - '3306:3306'
