@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql
+    restart: always
+    container_name: rustam-db
+    environment:
+      MYSQL_ROOT_PASSWORD: rustam01
+      MYSQL_DATABASE: rustam-db
+      MYSQL_USER: rustam
+      MYSQL_PASSWORD: rustam01
+    ports:
+       - '5050:5050'
