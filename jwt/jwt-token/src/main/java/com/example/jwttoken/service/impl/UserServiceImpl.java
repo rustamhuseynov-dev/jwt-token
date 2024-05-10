@@ -2,13 +2,17 @@ package com.example.jwttoken.service.impl;
 
 import java.util.Optional;
 
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.jwttoken.dto.UserDto;
 import com.example.jwttoken.model.User;
 import com.example.jwttoken.repository.UserRepository;
 import com.example.jwttoken.service.UserService;
-import com.example.jwttoken.dto.UserDto;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -20,6 +24,12 @@ public class UserServiceImpl implements UserService {
 	public UserServiceImpl(UserRepository repository, BCryptPasswordEncoder passwordEncoder) {
 		this.repository = repository;
 		this.passwordEncoder = passwordEncoder;
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		Optional<User> user = repository.findByUsername(username);
+		return user.orElseThrow(EntityNotFoundException::new);
 	}
 
 	@Override

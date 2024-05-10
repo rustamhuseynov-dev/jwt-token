@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import com.example.jwttoken.dto.AuthRequest;
 import com.example.jwttoken.service.JwtService;
 
 import io.jsonwebtoken.Claims;
@@ -47,7 +48,7 @@ public class JwtServiceImpl implements JwtService {
 		  return claims.getExpiration();
 	}
 	
-	private String extractUser(String token) {
+	public String extractUser(String token) {
 		Claims claims = Jwts
 				.parserBuilder()
 				.setSigningKey(getSignKey())
@@ -70,5 +71,6 @@ public class JwtServiceImpl implements JwtService {
 		byte[] keyBytes = Decoders.BASE64.decode(SECRET);
 		return Keys.hmacShaKeyFor(keyBytes);
 	}
+
 
 }
